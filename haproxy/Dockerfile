@@ -13,7 +13,7 @@ RUN mkdir -p /usr/local/bin && \
     echo '  echo "[INFO] Starting HAProxy with provided configuration..."' >> /usr/local/bin/run.sh && \
     echo '  exec haproxy -f /etc/haproxy/haproxy.cfg -db' >> /usr/local/bin/run.sh && \
     echo 'else' >> /usr/local/bin/run.sh && \
-    echo '  echo "[WARN] /etc/haproxy/haproxy.cfg not found — waiting for Percona operator"' >> /usr/local/bin/run.sh && \
+    echo '  echo "[WARN] /etc/haproxy/haproxy.cfg not found - waiting for Percona operator"' >> /usr/local/bin/run.sh && \
     echo '  sleep 5; exec haproxy -f /usr/local/etc/haproxy/haproxy.cfg -db' >> /usr/local/bin/run.sh && \
     echo 'fi' >> /usr/local/bin/run.sh && \
     chmod +x /usr/local/bin/run.sh
