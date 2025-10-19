@@ -1,0 +1,38 @@
+name: Build & Push HAProxy Image
+
+on:
+  push:
+    paths:
+      - 'haproxy/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and push HAProxy to GHCR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push HAProxy image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./haproxy
+          push: true
+          tags: ghcr.io/agimon-llc/haproxy:2.8-percona
+          labels: |
+            org.opencontainers.image.source=https://github.com/Agimon-LLC/homelab-images
+            org.opencontainers.image.description=Custom HAProxy image for Percona XtraDB Cluster in Agimon Homelab
