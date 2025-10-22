@@ -10,4 +10,7 @@ RUN apt-get update && apt-get install -y curl gnupg lsb-release \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 6032 6033
-ENTRYPOINT ["/usr/bin/proxysql", "-f"]
+
+# ✅ Properly separate binary and default flags
+ENTRYPOINT ["/usr/bin/proxysql"]
+CMD ["-f"]
